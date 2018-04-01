@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>精灵——从一个纹理贴图集中创建</title>
+</head>
+<body>
+
+    <script src="./js/pixi.min.js"></script>
+    <script>
+        //创建应用
+        const app = new PIXI.Application({
+            width:320,          //宽
+            height:320,         //高
+            antialias:true      //搞锯齿
+        });
+
+        //将画布添加到页面
+        document.body.appendChild(app.view);
+
+        //加载资源
+        PIXI.loader
+            .add([
+                './images/tuji.json'
+            ])
+            .load(()=>{
+
+                //从纹理缓存中获取纹理
+                // let texture = PIXI.utils.TextureCache['blob.png'],
+                //     sprite = new PIXI.Sprite(texture);
+
+                //或者
+                let id = PIXI.loader.resources['./images/tuji.json'].textures,
+                    sprite = new PIXI.Sprite(id['blob.png']);
+                
+                app.stage.addChild(sprite);
+
+                sprite.x = 100;
+                sprite.y = 100;
+
+
+            });
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>精灵——从一个纹理贴图集中创建</title>
+</head>
+<body>
+
+    <script src="./js/pixi.min.js"></script>
+    <script>
+        //创建应用
+        const app = new PIXI.Application({
+            width:512,          //宽
+            height:512,         //高
+            antialias:true      //搞锯齿
+        });
+
+        //将画布添加到页面
+        document.body.appendChild(app.view);
+
+        //加载资源
+        PIXI.loader
+            .add([
+                './images/tuji.json'
+            ])
+            .load(()=>{
+
+                //从纹理缓存中获取纹理
+                let id = PIXI.loader.resources['./images/tuji.json'].textures,
+                    Sprite = PIXI.Sprite,
+
+                    //创建精灵
+                    dungeon = new Sprite(id['dungeon.png']),
+                    explorer = new Sprite(id['explorer.png']),
+                    treasure = new Sprite(id['treasure.png']),
+                    door = new Sprite(id['door.png']);
+                
+                //插入dungeon精灵到舞台
+                app.stage.addChild(dungeon);
+                
+                //插入explorer精灵到舞台
+                explorer.x = 68;
+                explorer.y = app.stage.height / 2 - explorer.height / 2;
+                app.stage.addChild(explorer);
+
+                //插入treasure精灵到舞台
+                treasure.x = app.stage.width - treasure.width - 48;
+                treasure.y = app.stage.height / 2 - treasure.height / 2;
+                app.stage.addChild(treasure);
+                
+                //插入door精灵到舞台
+                door.position.set(32,0);
+                app.stage.addChild(door);
+                
+                //取指定范围随机数
+                let randomInt = (min,max)=>{
+                        return Math.floor(Math.random() * (max - min + 1)) + min;
+                    },
+                    blobs = [],
+                    
+                    numberOfBlobs = 6,      //blob个数
+                    spacing = 48,           //
+                    xOffset = 150,
+                    speed = 2,
+                    direction = 1;
+
+                //使用循环添加blob
+                for(let i=0; i<numberOfBlobs; i++){
+                    let blob = new Sprite(id['blob.png']),
+
+                        x = spacing * i + xOffset,
+                        y = randomInt(0,app.stage.height - blob.height);
+
+                    blob.position.set(x,y);
+                    blob.vy = speed * direction;
+                    direction *= -1;
+                    
+                    blobs.push(blob);
+                    app.stage.addChild(blob);
+
+
+                };
+
+
+
+
+
+
+                
+
+
+            });
+
+
+    </script>
+</body>
+</html>

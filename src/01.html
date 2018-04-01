@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>精灵——用一个雪碧图来创建</title>
+</head>
+<body>
+
+    <script src="./js/pixi.min.js"></script>
+    <script>
+        //创建应用
+        const app = new PIXI.Application({
+            width:320,          //宽
+            height:320,         //高
+            antialias:true      //搞锯齿
+        });
+
+        //将画布添加到页面
+        document.body.appendChild(app.view);
+
+        //加载资源
+        PIXI.loader
+            .add([
+                './images/sprite.png'
+            ])
+            .load(()=>{
+
+                //从纹理缓存中获取纹理
+                let texture = PIXI.utils.TextureCache['./images/sprite.png'],
+
+                //创建一个矩形。参数（x,y,width,height）
+                    rectangle = new PIXI.Rectangle(0,32,32,32);
+                
+                //设置纹理使用矩形部分（相当于裁切）
+                texture.frame = rectangle;
+
+                let tiger = new PIXI.Sprite(texture);
+
+                app.stage.addChild(tiger);
+
+                tiger.x = 100;
+                tiger.y = 100;
+
+
+            });
+
+
+    </script>
+</body>
+</html>

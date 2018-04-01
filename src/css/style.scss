@@ -1,0 +1,10 @@
+@charset "utf-8";
+@import "fws";              //引入fws sass库
+
+@include font-face('hello');
+
+body {text-align:center;}
+.hello {font-family:'hello'; font-size:rem(120);}
+.footer {font-size:rem(24);}
+
+.f,.w,.s {width:40px; height:40px; display:block; overflow:hidden;}

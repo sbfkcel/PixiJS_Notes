@@ -169,7 +169,7 @@ Pixi的loader对象可以加载任何图像资源。
 
 ```javascript
 PIXI.loader
-    .add('./images/1.png)
+    .add('./images/1.png')
     .add('./images/2.png')
     .load(()=>{
         console.log('加载完成');

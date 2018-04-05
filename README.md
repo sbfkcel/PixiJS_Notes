@@ -94,6 +94,45 @@ let sprite = new PIXI.Sprite(texture);
 ```
 
 ### 用一个雪碧图来创建
+使用雪碧图来创建精灵有三个步骤
+- 导入图片
+- 圈出想显示的区域
+- 创建精灵
+
+```javascript
+//从纹理缓存中获取纹理
+let texture = PIXI.utils.TextureCache['./images/sprite.png'],
+//创建一个矩形。参数（x,y,width,height）
+    rectangle = new PIXI.Rectangle(0,32,32,32);
+
+//设置纹理使用矩形部分（相当于使用绘制的矩形圈出需要显示的部分）
+texture.frame = rectangle;
+
+//创建精灵
+let tiger = new PIXI.Sprite(texture);
+```
+
+### 使用纹理图集来创建
+纹理图集由一个JSON文件和一张雪碧图构成，JSON文件包括了每一个子图像的大小及位置信息。
+
+Texture Packer 是一个纹理贴图制作工具（基本功能免费）。
+- 选择"JSON Hash"类型
+- 图片拖至工作区
+- "Algorithm"设置为`Basic`
+- "Trim mode"设置为`None`
+- "Extrude"设置为`0`
+- "Size constraints"设置为`Any size`
+- "PNG Opt Level"设置为`0`
+- 最后点击"Publish"按钮，将会得到一个`.json`和一张精灵图文件
+
+
+
+
+
+其它相关工具：
+!(Shoebox)[https://github.com/Zainking/learningPixi]
+!(spritesheet.js)[https://github.com/krzysztof-o/spritesheet.js]
+
 
 
 
@@ -275,12 +314,6 @@ PIXI.loader
         console.log(loader,resource);
     })
     .load(()=>{
-        //...
+        console.log('加载完成');
     });
 ```
-
-
-
-
-
-

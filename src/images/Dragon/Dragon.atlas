@@ -1,0 +1,132 @@
+
+Dragon.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+parts/tailTip
+  rotate: false
+  xy: 456, 234
+  size: 111, 209
+  orig: 112, 210
+  offset: 0, 1
+  index: -1
+parts/armUpperL
+  rotate: false
+  xy: 340, 234
+  size: 112, 86
+  orig: 112, 86
+  offset: 0, 0
+  index: -1
+parts/armL
+  rotate: false
+  xy: 373, 859
+  size: 48, 80
+  orig: 48, 80
+  offset: 0, 0
+  index: -1
+parts/handL
+  rotate: false
+  xy: 1, 922
+  size: 96, 78
+  orig: 96, 78
+  offset: 0, 0
+  index: -1
+parts/legL
+  rotate: false
+  xy: 238, 677
+  size: 203, 180
+  orig: 204, 180
+  offset: 0, 0
+  index: -1
+parts/body
+  rotate: false
+  xy: 1, 397
+  size: 235, 347
+  orig: 236, 348
+  offset: 0, 1
+  index: -1
+parts/tail
+  rotate: false
+  xy: 238, 397
+  size: 216, 278
+  orig: 216, 278
+  offset: 0, 0
+  index: -1
+parts/clothes1
+  rotate: false
+  xy: 1, 746
+  size: 208, 174
+  orig: 208, 174
+  offset: 0, 0
+  index: -1
+parts/hair
+  rotate: false
+  xy: 443, 677
+  size: 124, 282
+  orig: 124, 282
+  offset: 0, 0
+  index: -1
+parts/head
+  rotate: false
+  xy: 1, 1
+  size: 337, 394
+  orig: 338, 394
+  offset: 0, 0
+  index: -1
+parts/eyeL
+  rotate: false
+  xy: 459, 961
+  size: 28, 46
+  orig: 28, 46
+  offset: 0, 0
+  index: -1
+parts/eyeR
+  rotate: false
+  xy: 420, 961
+  size: 37, 58
+  orig: 38, 58
+  offset: 0, 0
+  index: -1
+parts/legR
+  rotate: false
+  xy: 340, 1
+  size: 180, 231
+  orig: 180, 232
+  offset: 0, 1
+  index: -1
+parts/armUpperR
+  rotate: false
+  xy: 211, 859
+  size: 160, 94
+  orig: 160, 94
+  offset: 0, 0
+  index: -1
+parts/armR
+  rotate: false
+  xy: 373, 941
+  size: 45, 77
+  orig: 46, 78
+  offset: 0, 1
+  index: -1
+parts/handR
+  rotate: false
+  xy: 340, 322
+  size: 98, 58
+  orig: 98, 58
+  offset: 0, 0
+  index: -1
+parts/beardL
+  rotate: false
+  xy: 237, 955
+  size: 119, 36
+  orig: 120, 36
+  offset: 0, 0
+  index: -1
+parts/beardR
+  rotate: false
+  xy: 99, 955
+  size: 136, 36
+  orig: 136, 36
+  offset: 0, 0
+  index: -1

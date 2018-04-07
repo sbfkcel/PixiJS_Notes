@@ -1,0 +1,111 @@
+
+Bicycle.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+robotFolder/arm_upper
+  rotate: false
+  xy: 1344, 520
+  size: 76, 127
+  orig: 76, 128
+  offset: 0, 1
+  index: -1
+robotFolder/arm_lower
+  rotate: false
+  xy: 2007, 1
+  size: 38, 138
+  orig: 38, 138
+  offset: 0, 0
+  index: -1
+robotFolder/arm_hand
+  rotate: false
+  xy: 1993, 496
+  size: 36, 75
+  orig: 36, 76
+  offset: 0, 1
+  index: -1
+robotFolder/leg_upper
+  rotate: false
+  xy: 1969, 312
+  size: 74, 182
+  orig: 74, 182
+  offset: 0, 0
+  index: -1
+robotFolder/leg_lower
+  rotate: false
+  xy: 1898, 312
+  size: 69, 206
+  orig: 70, 206
+  offset: 0, 0
+  index: -1
+robotFolder/leg_foot
+  rotate: false
+  xy: 1512, 520
+  size: 82, 43
+  orig: 82, 44
+  offset: 0, 1
+  index: -1
+脚蹬
+  rotate: false
+  xy: 1257, 520
+  size: 85, 128
+  orig: 85, 128
+  offset: 0, 0
+  index: -1
+车轮
+  rotate: false
+  xy: 1257, 1
+  size: 517, 517
+  orig: 517, 517
+  offset: 0, 0
+  index: -1
+曲轴
+  rotate: false
+  xy: 1898, 205
+  size: 139, 105
+  orig: 139, 105
+  offset: 0, 0
+  index: -1
+小牙轮
+  rotate: false
+  xy: 1776, 405
+  size: 116, 116
+  orig: 116, 116
+  offset: 0, 0
+  index: -1
+车架
+  rotate: false
+  xy: 1, 1
+  size: 1254, 683
+  orig: 1254, 683
+  offset: 0, 0
+  index: -1
+大牙轮
+  rotate: false
+  xy: 1776, 1
+  size: 229, 202
+  orig: 229, 202
+  offset: 0, 0
+  index: -1
+robotFolder/head
+  rotate: false
+  xy: 1894, 520
+  size: 97, 118
+  orig: 98, 118
+  offset: 0, 0
+  index: -1
+robotFolder/upperbody
+  rotate: false
+  xy: 1776, 205
+  size: 120, 198
+  orig: 120, 198
+  offset: 0, 0
+  index: -1
+robotFolder/lowerbody
+  rotate: false
+  xy: 1422, 520
+  size: 88, 106
+  orig: 88, 106
+  offset: 0, 0
+  index: -1

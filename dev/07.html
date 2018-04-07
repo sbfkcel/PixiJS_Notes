@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>精灵——用一个雪碧图来创建</title>
+    <title>精灵——从一个纹理贴图集中创建</title>
 </head>
 <body>
 
     <script src="./js/pixi.min.js"></script>
+    <script src="./js/pixi-spine.js"></script>
+    <script src="./js/matter.js"></script>
     <script>
         //创建应用
         const app = new PIXI.Application({
-            width:320,          //宽
-            height:320,         //高
-            antialias:true      //搞锯齿
+            width:800,          //宽
+            height:600         //高
         });
 
         //将画布添加到页面
@@ -23,27 +24,22 @@
         //加载资源
         PIXI.loader
             .add([
-                './images/sprite.png'
+                './images/NewDragon/NewDragon.json'
             ])
-            .load(()=>{
-
-                //从纹理缓存中获取纹理
-                let texture = PIXI.utils.TextureCache['./images/sprite.png'],
-
-                //创建一个矩形。参数（x,y,width,height）
-                    rectangle = new PIXI.Rectangle(0,32,32,32);
+            .load((loader, resources)=>{
+                console.log(resources)
                 
-                //设置纹理使用矩形部分（相当于裁切）
-                texture.frame = rectangle;
+                var pixie = new PIXI.spine.Spine(resources['./images/NewDragon/NewDragon.json'].spineData);
+                app.stage.addChild(pixie);
+                
+                var scale = 0.8;
 
-                let tiger = new PIXI.Sprite(texture);
+                pixie.x = 1024 / 3;
+                pixie.y = 500;
 
-                app.stage.addChild(tiger);
-
-                tiger.x = 100;
-                tiger.y = 100;
-
-
+                pixie.scale.x = pixie.scale.y = scale;
+                pixie.state.setAnimation(0, 'stand', true);
+                app.start();
             });
 
 

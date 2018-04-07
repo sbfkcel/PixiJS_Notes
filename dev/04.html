@@ -42,6 +42,24 @@
 
                 tiger.x = 100;
                 tiger.y = 100;
+                
+                tiger.vx = -1;
+
+                //游戏状态
+                let play = (delta)=>{
+                        //水平移动速度为1
+                        tiger.vx = 1;
+                        //设置其移动
+                        tiger.x += tiger.vx;
+                    },
+                    state = play,
+                    gameLoop = (delta)=>{
+                        state(delta);
+                    };
+
+                app.ticker.add(delta => gameLoop(delta));
+
+                
 
 
             });

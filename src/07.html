@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>精灵——从一个纹理贴图集中创建</title>
+</head>
+<body>
+
+    <script src="./js/pixi.min.js"></script>
+    <script src="./js/pixi-spine.js"></script>
+    <script src="./js/matter.js"></script>
+    <script>
+        //创建应用
+        const app = new PIXI.Application({
+            width:800,          //宽
+            height:600         //高
+        });
+
+        //将画布添加到页面
+        document.body.appendChild(app.view);
+
+        //加载资源
+        PIXI.loader
+            .add([
+                './images/NewDragon/NewDragon.json'
+            ])
+            .load((loader, resources)=>{
+                console.log(resources)
+                
+                var pixie = new PIXI.spine.Spine(resources['./images/NewDragon/NewDragon.json'].spineData);
+                app.stage.addChild(pixie);
+                
+                var scale = 0.8;
+
+                pixie.x = 1024 / 3;
+                pixie.y = 500;
+
+                pixie.scale.x = pixie.scale.y = scale;
+                pixie.state.setAnimation(0, 'stand', true);
+                app.start();
+            });
+
+
+    </script>
+</body>
+</html>

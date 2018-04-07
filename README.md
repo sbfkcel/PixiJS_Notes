@@ -125,16 +125,29 @@ Texture Packer 是一个纹理贴图制作工具（基本功能免费）。
 - "PNG Opt Level"设置为`0`
 - 最后点击"Publish"按钮，将会得到一个`.json`和一张精灵图文件
 
-
-
-
+`fws pixiSprite` 任务也可创建一个纹理贴图，在对应的图片目录中执行即可。
 
 其它相关工具：
 !(Shoebox)[https://github.com/Zainking/learningPixi]
 !(spritesheet.js)[https://github.com/krzysztof-o/spritesheet.js]
 
-
-
+```javascript
+PIXI.loader
+    //加载图集数据文件
+    .add('./images/tuji.json)
+    .load(()=>{
+        //从纹理缓存中获取纹理
+        let id = PIXI.loader.resources['./images/tuji.json'].textures,
+            Sprite = PIXI.Sprite,
+            
+            //创建精灵
+            dungeon = new Sprite(id['dungeon.png']);
+            
+        //插入dungeon精灵到舞台
+        app.stage.addChild(dungeon);
+        
+    });
+```
 
 ### 控制精灵
 ```javascript
@@ -186,6 +199,24 @@ cat.pivot.y = 32;
 
 cat.pivot.set(32,32);
 
+```
+
+Pixi自带了一个轮循执行器，很好用。该轮循器每秒执行60次，参数`delta`代表帧的部分的延迟，这样就可以让精灵移动的速度与帧率无关。
+
+```javascript
+app.ticker.add(delta => {
+    cat.x += delta;
+});
+```
+
+当然你也可以直接使用`requestAnimationFrame`取代`app.ticker`。
+
+```javascript
+function gameLoop(){
+    requestAnimationFrame(gameLoop);
+    cat.x += 1;
+};
+gameLoop();
 ```
 
 
@@ -317,3 +348,9 @@ PIXI.loader
         console.log('加载完成');
     });
 ```
+
+
+
+
+http://www.werun.cn/index/pixi/zpcj.html
+http://www.werun.cn/index/pixi/suanpan.html

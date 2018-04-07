@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>精灵——从一个纹理贴图集中创建</title>
+</head>
+<body>
+
+    <script src="./js/pixi.min.js"></script>
+    <script>
+        //创建应用
+        const app = new PIXI.Application({
+            width:512,          //宽
+            height:512         //高
+        });
+
+        //将画布添加到页面
+        document.body.appendChild(app.view);
+
+        //加载资源
+        PIXI.loader
+            .add([
+                './images/sprite.png'
+            ])
+            .load(()=>{
+
+                //从纹理缓存中获取纹理
+                let texture = PIXI.utils.TextureCache['./images/sprite.png'],
+
+                //创建一个矩形。参数（x,y,width,height）
+                    rectangle = new PIXI.Rectangle(0,0,32,32);
+                
+                //设置纹理使用矩形部分（相当于裁切）
+                texture.frame = rectangle;
+
+                let cat = new PIXI.Sprite(texture);
+
+                app.stage.addChild(cat);
+
+                cat.x = 100;
+                cat.y = 100;
+                cat.vx = 1;
+                cat.vy = 1;
+
+
+                let keyboard = (e)=>{
+                    //37左、上38、39右、下40
+                    let keyCode = e.keyCode,
+                        type = e.type,
+                        board = {
+                            'keydown':{
+                                '37':()=>{
+                                    cat.vx = -10;
+                                    cat.vy = 0;
+                                },
+                                '38':()=>{
+                                    cat.vy = -5;
+                                    cat.vx = 0;
+                                },
+                                '39':()=>{
+                                    cat.vx = 5;
+                                    cat.vy = 0;
+                                },
+                                '40':()=>{
+                                    cat.vy = 5;
+                                    cat.vx = 0;
+                                }
+                            },
+                            'keyup':{
+                                '37':()=>{
+                                    cat.vx = 0;
+                                },
+                                '38':()=>{
+                                    cat.vy = 0;
+                                },
+                                '39':()=>{
+                                    cat.vx = 0;
+                                },
+                                '40':()=>{
+                                    cat.vy = 0;
+                                }
+                            }
+                        };
+                    //如果对应的事件类型有指定方法，则执行该方法
+                    if(board[type] && board[type][keyCode]){
+                        board[type][keyCode]();
+                    };
+                    event.preventDefault();
+                };
+                
+                window.addEventListener('keydown',keyboard,false);
+                window.addEventListener('keyup',keyboard,false);
+                
+
+
+                //游戏状态
+                let play = (delta)=>{
+                        cat.x += cat.vx;
+                        cat.y += cat.vy
+                    },
+                    state = play,
+                    gameLoop = (delta)=>{
+                        state(delta);
+                    };
+
+                //Start the game loop
+                app.ticker.add(delta => gameLoop(delta));
+
+
+
+
+
+
+                
+
+
+            });
+
+
+    </script>
+</body>
+</html>
+<!--fws开发模式start-->
+<script>var socketServer = '//192.168.1.102:3000'</script>
+<script src="//192.168.1.102:3000/staticfile/socket.io/1.7.3/socket.io.js"></script>
+<script src="//192.168.1.102:3000/fws_hot_loader.js"></script>
+<!--fws开发模式end-->
+        

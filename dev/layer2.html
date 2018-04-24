@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>layers</title>
+</head>
+<body>
+
+    <script src="./js/pixi.min.js"></script>
+    <script src="./js/pixi-layers.js"></script>
+    <script>
+        const app = new PIXI.Application({
+            antialias:true,
+            backgroundColor:0xffffff
+        }),
+        loader = PIXI.loader,
+        Stage = PIXI.display.Stage,
+        Layer = PIXI.display.Layer,
+        Group = PIXI.display.Group,
+        Texture = PIXI.Texture,
+        Container = PIXI.Container,
+
+        Sprite = PIXI.Sprite;
+
+        document.body.appendChild(app.view);
+
+        app.stage = new Stage();
+        app.stage.group.enableSort = true;
+
+        // // 创建两个分组，并设置为可允许调整排序
+        // let group1 = new Group(2,true),
+        //     group2 = new Group(1,true);
+        
+        // // 将组添加到场景
+        // app.stage.addChild(new Layer(group1));
+        // app.stage.addChild(new Layer(group2));
+
+
+        loader.add([
+            {
+                name:'a',
+                url:'./images/emoji/a.png'
+            },
+            {
+                name:'b',
+                url:'./images/emoji/b.png'
+            }
+        ]);
+        
+
+        let sprites = {
+                a:[],
+                b:[]
+            },
+            w = 64,
+            h = 64,
+            setup = (loader,resource)=>{
+                let layer = new Layer();
+                layer.group.enableSort = true;
+
+                app.stage.addChild(layer);
+
+                for(let i=0,len=5; i<len; i++){
+                    sprites.a[i] = new Sprite(resource.a.texture);
+                    sprites.a[i].parentLayer = layer;
+
+                    sprites.a[i].width = w;
+                    sprites.a[i].height = h;
+
+                    sprites.a[i].x = w * (i * 0.5);
+
+                    sprites.a[i].zIndex = i;
+
+                    app.stage.addChild(sprites.a[i]);
+                };
+
+                let tIndex = 0,
+                    temp = setInterval(()=>{
+                        sprites.a[tIndex].zIndex = 100 - tIndex;
+                        tIndex++;
+
+                        if(tIndex >= sprites.a.length){
+                            clearInterval(temp);
+                            console.log('排序调整完成');
+                        };
+                    },500);
+
+
+            };
+
+        
+
+
+
+        loader.load(setup);
+
+        
+    
+    </script>
+    
+</body>
+</html>
+<!--fws开发模式start-->
+<script id="fws_socket"></script>
+<script id="fws_hotLoader"></script>
+<script>
+    (function(){
+        var isOnreadystatechange = (function(){
+                var ver = document.documentMode ? document.documentMode : 9999;
+                return !!window.ActiveXObject && ver < 9;
+            })(),
+            origin = location.origin === 'file://' ? 'http://' : '//',
+            socketServer = origin +'10.2.100.133:3001',
+            ofws_socket = document.getElementById('fws_socket'),
+            ofws_hotLoader = document.getElementById('fws_hotLoader');
+        
+        window.socketServer = socketServer;
+        ofws_socket.src = socketServer + '/staticfile/socket.io/1.3.7/socket.io.js';
+        if(isOnreadystatechange){
+            ofws_socket.onreadystatechange = function(){
+                var state = this.readyState;
+                if(state === 'complete' || state === 'loaded'){
+                    ofws_hotLoader.src = socketServer + '/fws_hot_loader.js';
+                };
+            };
+        }else{
+            ofws_socket.onload = function(){
+                ofws_hotLoader.src = socketServer + '/fws_hot_loader.js';
+            };
+        };
+    })();
+</script>
+<!--fws开发模式end-->
+        

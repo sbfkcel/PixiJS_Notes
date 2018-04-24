@@ -25,11 +25,12 @@
         PIXI.loader
             .use(PIXI.dragonbones.loaders.skeletonParser())
             .add([
-                {'name':'dragon','url':'./images/bicycle/bicycle_ske.json'}
+                {'name':'dragon','url':'./images/assets/dragon_atlas.json'}
             ])
             .load((loader, resources)=>{
+                console.log(resources)
                 // this._skeleton = PIXI.dragonbones.display.Skeleton.makeArmature("dragonBoy", "DragonBoy");
-                // console.log(this._skeleton);
+                // console.log(this._skeleton)
             });
 
 

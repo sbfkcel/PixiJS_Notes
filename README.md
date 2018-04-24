@@ -350,6 +350,175 @@ PIXI.loader
 ```
 
 
+## 图层
+Pixi-layers.js 可以很方便地管理控制图层。
+
+如果有多个元素需要同时控制层级顺序，建议使用组的形式，以提高性能。
+
+```html
+<srcipt src="./js/pixi-layers.js"></script>
+```
+
+```javascript
+const app = new PIXI.Application();
+document.body.appendChild(app.view);
+
+const loader = PIXI.loader,
+    Stage = PIXI.display.Stage,
+    Layer = PIXI.display.Layer,
+    Group = PIXI.display.Group,
+    Texture = PIXI.Texture,
+    Container = PIXI.Container,
+    Sprite = PIXI.Sprite;
+
+// 将场景设置为可支持图层的新场景，并启用组排序
+app.stage = new Stage();
+app.stage.group.enableSort = true;
+
+// 加载资源
+loader.add([
+    {
+        name:'a',
+        url:'./images/emoji/a.png'
+    },
+    {
+        name:'b',
+        url:'./images/emoji/b.png'
+    }
+]);
+
+// 创建两个分组，并设置为可允许调整排序
+let group1 = new Group(2,true),
+    group2 = new Group(1,true);
+
+// 将组添加到场景
+app.stage.addChild(new Layer(group1));
+app.stage.addChild(new Layer(group2));
+
+let sprites = {
+        a:[],
+        b:[]
+    },
+    w = 64,
+    h = 64,
+    setup = (loader,resource)=>{
+        // loader，进度；resource，加载的缓存
+        let t = 100;
+        for(let i=0; i<5; i++){
+            sprites.a[i] = new Sprite(resource.a.texture);
+
+            sprites.a[i].width = w;
+            sprites.a[i].height = h;
+            sprites.a[i].x = w * (i * 0.5);
+            sprites.a[i].y = h * (i * 0.5);
+
+            // 设置其排序（增序），zOrder（降序）
+            sprites.a[i].zIndex = i;
+
+            // 设置所属分组
+            sprites.a[i].parentGroup = group1;
+            app.stage.addChild(sprites.a[i]);
+
+            let blurFilter = new PIXI.filters.BlurFilter(),
+                gr = new Sprite(resource.b.texture);
+
+            blurFilter.blur = 0.5;
+            gr.filters = [blurFilter];
+
+            gr.parentGroup = group2;
+            sprites.a[i].addChild(gr)
+
+        };
+
+        // 500ms后逐个排序
+        let tIndex = 0,
+            temp = setInterval(()=>{
+                sprites.a[tIndex].zIndex = t - tIndex;
+                tIndex++;
+
+                if(tIndex >= sprites.a.length){
+                    clearInterval(temp);
+                    console.log('排序调整完成');
+                };
+            },500,()=>{
+                // sprites.a[tIndex].zOrder = -1000;
+            });
+    };
+loader.load(setup);
+```
+
+当然图层较少也可以不使用分组。
+
+```javascript
+const app = new PIXI.Application(),
+    loader = PIXI.loader,
+    Stage = PIXI.display.Stage,
+    Layer = PIXI.display.Layer,
+    Group = PIXI.display.Group,
+    Texture = PIXI.Texture,
+    Container = PIXI.Container,
+
+    Sprite = PIXI.Sprite;
+
+document.body.appendChild(app.view);
+
+// 将场景设置为可支持图层的新场景，并启用组排序
+app.stage = new Stage();
+app.stage.group.enableSort = true;
+
+loader.add([
+    {
+        name:'a',
+        url:'./images/emoji/a.png'
+    },
+    {
+        name:'b',
+        url:'./images/emoji/b.png'
+    }
+]);
+
+let sprites = {
+        a:[],
+        b:[]
+    },
+    w = 64,
+    h = 64,
+    setup = (loader,resource)=>{
+        // 创建一个图层，启用排序并添加到舞台
+        let layer = new Layer();
+        layer.group.enableSort = true;
+        app.stage.addChild(layer);
+
+        for(let i=0,len=5; i<len; i++){
+            // 创建精灵，并指定精灵所属层级
+            sprites.a[i] = new Sprite(resource.a.texture);
+            sprites.a[i].parentLayer = layer;
+
+            // 设置精灵宽高，层级
+            sprites.a[i].width = w;
+            sprites.a[i].height = h;
+            sprites.a[i].x = w * (i * 0.5);
+            sprites.a[i].zIndex = i;
+
+            // 将精灵添加至舞台
+            app.stage.addChild(sprites.a[i]);
+        };
+
+        let tIndex = 0,
+            temp = setInterval(()=>{
+                sprites.a[tIndex].zIndex = 100 - tIndex;
+                tIndex++;
+
+                if(tIndex >= sprites.a.length){
+                    clearInterval(temp);
+                    console.log('排序调整完成');
+                };
+            },500);
+    };
+loader.load(setup);
+```
+
+
 
 
 http://www.werun.cn/index/pixi/zpcj.html
